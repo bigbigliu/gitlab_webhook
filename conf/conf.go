@@ -16,7 +16,7 @@ var Config = struct {
 var k = koanf.New(".")
 
 func init() {
-	if err := k.Load(file.Provider("./conf.json"), json.Parser()); err != nil {
+	if err := k.Load(file.Provider("conf.json"), json.Parser()); err != nil {
 		panic(err)
 	}
 	Config.PushAddress = k.Get("puhAddress").(map[string]interface{})
