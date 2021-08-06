@@ -1,5 +1,9 @@
 FROM golang:latest AS builder
 
+# 容器环境变量添加，会覆盖默认的变量值
+# ENV GOPROXY=https://goproxy.cn,direct
+# ENV GO111MODULE=on
+
 WORKDIR /go/cache
 
 # 利用docker镜像文件分层做缓存
@@ -8,6 +12,7 @@ ADD go.sum .
 RUN go env -w GO111MODULE=on \
     && go env -w GOPROXY=https://goproxy.cn,direct \
     && go mod download
+# RUN go mod download
 
 # 设置工作目录
 WORKDIR /src
@@ -29,14 +34,17 @@ RUN  echo "Asia/Shanghai" > /etc/timezone \
     && rm -f /etc/localtime \
     && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
-# 复制 conf 文件到容器 conf
-COPY --from=builder /src/conf/ . /svr/
+
+WORKDIR /svr
+
+# 将上一级构建编译成功的二进制文件复制到当前工作区
+COPY --from=builder /src/app /svr
+
+# 复制 .env 文件到容器 .env
+COPY --from=builder /src/conf/conf.json /svr/conf/conf.json
 
 # Expose port 8080 to the outside world
-EXPOSE 8085
+EXPOSE 8080
 
 # Command to run the executable
 CMD ["./app"]
-
-
-

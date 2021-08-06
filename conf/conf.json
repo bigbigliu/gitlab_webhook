@@ -2,6 +2,6 @@
     "pushAddress":{
             "https://gitlab.com/bigbigliu/appservice":"https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=57149fb1-77ef-4c5d-98ab-e31d33b39784"
     },
-    "port":":8085",
+    "port":":8080",
     "branch":"develop,test,master"
 }
