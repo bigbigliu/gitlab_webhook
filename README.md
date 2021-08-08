@@ -12,6 +12,6 @@ make docker-build
 
 ## docker run
 ``` bash
-docker run -d -p 8087:8080 webhook
+docker run -d -p [port]:8080 webhook
 ```
 
