@@ -1,9 +1,5 @@
 FROM golang:latest AS builder
 
-# 容器环境变量添加，会覆盖默认的变量值
-# ENV GOPROXY=https://goproxy.cn,direct
-# ENV GO111MODULE=on
-
 WORKDIR /go/cache
 
 # 利用docker镜像文件分层做缓存
