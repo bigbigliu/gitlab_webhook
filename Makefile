@@ -1,6 +1,6 @@
 .PHONY : build docker
 
-mod-download:
+mod-download: # 下载依赖
 	go mod download
 
 build:
